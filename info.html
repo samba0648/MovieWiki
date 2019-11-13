@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Movie Details</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<style type="text/css">
+		body{background-color: #ccc;}
+	</style>
+</head>
+<body onload="myfunction()">
+	<div id="top">
+			<button onclick="history.go(-1)" id="mybtn" style="">Go Back</button>
+		</div>
+		<div class="myoutput">
+			<div id="photo"></div>
+			<div id="Details"></div>
+		</div>
+</body>
+<!-- <script type="text/javascript" src="script.js"></script>
+ --><script type="text/javascript">
+	var my_output = document.getElementById('myoutput');
+	var container = document.createElement('div');
+	container.setAttribute('class','container');
+	my_output.appendChild(container);
+	function myfunction(){
+	      var url_string = window.location;
+	      var url = new URL(url_string);
+	      var name = url.searchParams.get("movie");
+	      //alert(name);
+	      var link ="http://www.omdbapi.com/?i="+name+"&apikey=26a71cf4"
+	      //console.log(link) 
+	       fetch(link)
+	        .then(function(resp){
+	          return resp.json(); 
+	        })
+	        .then(function(data){
+	          	var photo = document.getElementById("photo");
+	          	const card = document.createElement('div');
+	            card.setAttribute('class', 'card');
+	            card.style.backgroundImage = "url('"+data["Poster"]+"')";
+	            photo.appendChild(card);
+	            var detail = document.getElementById("Details");
+	            all_tags = Object.keys(data);
+	            const table = document.createElement("Table");
+	            table.style.textAlign = "center";
+	            table.style.Border = "2px solid #0000FF";
+	            for(var i=0;i<all_tags.length;i++){
+	            	if(all_tags[i]!="Poster"){
+	            		const tr = document.createElement("tr");
+		            	td1 = document.createElement("td");
+		            	td1.setAttribute('class','td1');
+		            	td1.textContent = all_tags[i];
+		            	td2 = document.createElement("td");
+		            	td2.setAttribute('class','td2');
+		            	td2.textContent = data[all_tags[i]];
+		            	tr.appendChild(td1);
+		            	tr.appendChild(td2);
+		            	table.appendChild(tr);
+	            	}
+	            	
+	            }
+	            detail.appendChild(table)
+	        })
+	}
+</script>
+</html>
