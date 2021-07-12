@@ -4,7 +4,7 @@ container.setAttribute('class','container');
 output.appendChild(container);
 function searchMovie(string){
   if(string!=''){
-    fetch("http://www.omdbapi.com/?t="+string+"&apikey=26a71cf4")
+    fetch("https://www.omdbapi.com/?t="+string+"&apikey=26a71cf4")
     .then(function(resp){
       return resp.json(); 
     })
